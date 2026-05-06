@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Registration Form – Innovate Company Ltd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --card: #161b22;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --error: #f85149;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 16px;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(88,166,255,0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 110%, rgba(63,185,80,0.10), transparent);
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 700px;
+      animation: fadeUp 0.7s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .header .badge {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(88,166,255,0.3);
+      border-radius: 100px;
+      padding: 4px 14px;
+      margin-bottom: 16px;
+    }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(26px, 5vw, 40px);
+      line-height: 1.15;
+      background: linear-gradient(135deg, #e6edf3 30%, var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border-radius: 16px 16px 0 0;
+    }
+
+    .section-title {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin: 28px 0 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .section-title:first-of-type { margin-top: 0; }
+
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .grid-1 { display: grid; grid-template-columns: 1fr; gap: 18px; }
+
+    .field { display: flex; flex-direction: column; gap: 6px; }
+
+    label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 0.3px;
+    }
+
+    label span.req { color: var(--error); margin-left: 2px; }
+
+    input, select, textarea {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 11px 14px;
+      outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+
+    input::placeholder, textarea::placeholder { color: #4a5568; }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(88,166,255,0.12);
+    }
+
+    select { cursor: pointer; appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%238b949e' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
+
+    select option { background: var(--card); }
+
+    textarea { resize: vertical; min-height: 90px; }
+
+    .radio-group, .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .radio-label, .check-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text);
+      cursor: pointer;
+      padding: 8px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .radio-label:hover, .check-label:hover {
+      border-color: var(--accent);
+      background: rgba(88,166,255,0.05);
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: 16px; height: 16px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .photo-upload {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .photo-upload:hover { border-color: var(--accent); background: rgba(88,166,255,0.04); }
+    .photo-upload input { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+    .photo-upload .icon { font-size: 32px; margin-bottom: 8px; }
+    .photo-upload p { font-size: 13px; color: var(--muted); }
+    .photo-upload p strong { color: var(--accent); }
+
+    .actions { margin-top: 36px; display: flex; gap: 14px; }
+
+    .btn-submit {
+      flex: 1;
+      background: linear-gradient(135deg, var(--accent), #1f6feb);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      padding: 14px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.15s;
+      letter-spacing: 0.3px;
+    }
+
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .btn-reset {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 14px 22px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-reset:hover { border-color: var(--error); color: var(--error); }
+
+    .success-msg {
+      display: none;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: var(--radius);
+      background: rgba(63,185,80,0.1);
+      border: 1px solid rgba(63,185,80,0.3);
+      color: var(--accent2);
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 560px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .card { padding: 24px; }
+      .actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="header">
+    <div class="badge">Innovate Company Ltd</div>
+    <h1>Student Registration</h1>
+    <p>Please fill in all required fields to complete your registration.</p>
+  </div>
+
+  <div class="card">
+    <form id="regForm" novalidate>
+
+      <!-- Personal Information -->
+      <div class="section-title">Personal Information</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>First Name <span class="req">*</span></label>
+          <input type="text" name="firstName" placeholder="e.g. Alpha" required />
+        </div>
+        <div class="field">
+          <label>Last Name <span class="req">*</span></label>
+          <input type="text" name="lastName" placeholder="e.g. Sezerano" required />
+        </div>
+        <div class="field">
+          <label>Date of Birth <span class="req">*</span></label>
+          <input type="date" name="dob" required />
+        </div>
+        <div class="field">
+          <label>Gender <span class="req">*</span></label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="gender" value="Male" required /> Male</label>
+            <label class="radio-label"><input type="radio" name="gender" value="Female" /> Female</label>
+            <label class="radio-label"><input type="radio" name="gender" value="Other" /> Other</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Nationality <span class="req">*</span></label>
+          <select name="nationality" required>
+            <option value="" disabled selected>Select nationality</option>
+            <option>Rwandan</option>
+            <option>Burundian</option>
+            <option>Congolese</option>
+            <option>Kenyan</option>
+            <option>Ugandan</option>
+            <option>Tanzanian</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>National ID / Passport No. <span class="req">*</span></label>
+          <input type="text" name="nationalId" placeholder="1 XXXX X XXXXXXX X XX" required />
+        </div>
+      </div>
+
+      <!-- Contact Details -->
+      <div class="section-title">Contact Details</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Email Address <span class="req">*</span></label>
+          <input type="email" name="email" placeholder="student@example.com" required />
+        </div>
+        <div class="field">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" name="phone" placeholder="+250 7XX XXX XXX" required />
+        </div>
+        <div class="field">
+          <label>Province <span class="req">*</span></label>
+          <select name="province" required>
+            <option value="" disabled selected>Select province</option>
+            <option>Kigali City</option>
+            <option>Northern Province</option>
+            <option>Southern Province</option>
+            <option>Eastern Province</option>
+            <option>Western Province</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>District</label>
+          <input type="text" name="district" placeholder="e.g. Huye" />
+        </div>
+      </div>
+      <div class="grid-1">
+        <div class="field">
+          <label>Home Address</label>
+          <textarea name="address" placeholder="Street, Sector, Cell, Village…"></textarea>
+        </div>
+      </div>
+
+      <!-- Academic Information -->
+      <div class="section-title">Academic Information</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Student ID <span class="req">*</span></label>
+          <input type="text" name="studentId" placeholder="e.g. ICL-2026-0042" required />
+        </div>
+        <div class="field">
+          <label>Academic Year <span class="req">*</span></label>
+          <select name="academicYear" required>
+            <option value="" disabled selected>Select year</option>
+            <option>2024 – 2025</option>
+            <option>2025 – 2026</option>
+            <option>2026 – 2027</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Faculty / Department <span class="req">*</span></label>
+          <select name="faculty" required>
+            <option value="" disabled selected>Select department</option>
+            <option>Computer Science</option>
+            <option>Information Technology</option>
+            <option>Software Engineering</option>
+            <option>Data Science</option>
+            <option>Cybersecurity</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Year of Study <span class="req">*</span></label>
+          <select name="yearOfStudy" required>
+            <option value="" disabled selected>Select year</option>
+            <option>Year 1</option>
+            <option>Year 2</option>
+            <option>Year 3</option>
+            <option>Year 4</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Mode of Study</label>
+          <div class="radio-group">
+            <label class="radio-label"><input type="radio" name="mode" value="Full-time" /> Full-time</label>
+            <label class="radio-label"><input type="radio" name="mode" value="Part-time" /> Part-time</label>
+            <label class="radio-label"><input type="radio" name="mode" value="Online" /> Online</label>
+          </div>
+        </div>
+        <div class="field">
+          <label>Previous School</label>
+          <input type="text" name="prevSchool" placeholder="Secondary school name" />
+        </div>
+      </div>
+
+      <!-- Guardian Information -->
+      <div class="section-title">Guardian / Emergency Contact</div>
+      <div class="grid-2">
+        <div class="field">
+          <label>Guardian Full Name <span class="req">*</span></label>
+          <input type="text" name="guardianName" placeholder="Full name" required />
+        </div>
+        <div class="field">
+          <label>Relationship</label>
+          <select name="relationship">
+            <option value="" disabled selected>Select</option>
+            <option>Parent</option>
+            <option>Sibling</option>
+            <option>Spouse</option>
+            <option>Guardian</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Guardian Phone <span class="req">*</span></label>
+          <input type="tel" name="guardianPhone" placeholder="+250 7XX XXX XXX" required />
+        </div>
+        <div class="field">
+          <label>Guardian Email</label>
+          <input type="email" name="guardianEmail" placeholder="guardian@example.com" />
+        </div>
+      </div>
+
+      <!-- Photo Upload -->
+      <div class="section-title">Passport Photo</div>
+      <div class="photo-upload">
+        <input type="file" name="photo" accept="image/*" />
+        <div class="icon">📷</div>
+        <p><strong>Click to upload</strong> or drag & drop</p>
+        <p>JPG or PNG · Max 2 MB · Passport size preferred</p>
+      </div>
+
+      <!-- Consent -->
+      <div class="section-title">Declaration</div>
+      <div class="field">
+        <label class="check-label">
+          <input type="checkbox" name="consent" required />
+          I confirm that all information provided is accurate and true to the best of my knowledge.
+        </label>
+      </div>
+
+      <!-- Buttons -->
+      <div class="actions">
+        <button type="submit" class="btn-submit">Submit Registration</button>
+        <button type="reset" class="btn-reset">Clear Form</button>
+      </div>
+
+      <div class="success-msg" id="successMsg">
+        ✅ Registration submitted successfully! You will receive a confirmation email shortly.
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.getElementById('regForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const required = this.querySelectorAll('[required]');
+    let valid = true;
+    required.forEach(el => {
+      if (el.type === 'radio') return; // handled separately
+      if (!el.value.trim()) { el.style.borderColor = 'var(--error)'; valid = false; }
+      else el.style.borderColor = '';
+    });
+    // check radio groups
+    const radioGroups = ['gender'];
+    radioGroups.forEach(name => {
+      const checked = this.querySelector(`input[name="${name}"]:checked`);
+      if (!checked) valid = false;
+    });
+    const consent = this.querySelector('[name="consent"]');
+    if (!consent.checked) { valid = false; consent.parentElement.style.borderColor = 'var(--error)'; }
+    else consent.parentElement.style.borderColor = '';
+
+    if (valid) {
+      document.getElementById('successMsg').style.display = 'block';
+      this.reset();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  });
+</script>
+</body>
+</html>
