@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            width: 300px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 90%;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 95%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Sign Up</h2>
+
+    <form onsubmit="saveEmail(event)">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Enter Email" required>
+        <input type="password" placeholder="Create Password" required>
+
+        <button type="submit">Sign Up</button>
+    </form>
+
+    <a href="#">Already have an account? Login</a>
+
+    <p id="message" style="color: green;"></p>
+</div>
+
+<script>
+    function saveEmail(event) {
+        event.preventDefault();
+
+        let email = document.getElementById("email").value;
+
+        document.getElementById("message").innerText = 
+            "Email saved successfully: " + email;
+    }
+</script>
+
+</body>
+</html>
